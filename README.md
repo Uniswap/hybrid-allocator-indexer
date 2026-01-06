@@ -2,6 +2,12 @@
 
 A [Ponder](https://ponder.sh) indexer for the Hybrid Allocator contract deployed across multiple EVM chains.
 
+## Live Deployment
+
+The indexer is deployed and available at:
+- **GraphQL API:** https://hybrid-allocator-indexer.marble.live/graphql
+- **Root endpoint:** https://hybrid-allocator-indexer.marble.live/
+
 ## Contract Address
 
 The Hybrid Allocator is deployed at:
