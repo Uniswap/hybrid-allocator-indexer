@@ -1,7 +1,28 @@
 import { onchainTable, index, primaryKey, relations } from "ponder";
 
 // ============================================================================
-// ACCOUNTS (Sponsors, Owners, Signers)
+// INDEXED BLOCKS (24-hour retention for cross-indexer consistency checks)
+// ============================================================================
+
+export const indexedBlock = onchainTable(
+  "indexed_block",
+  (t) => ({
+    chainId: t.bigint().notNull(),
+    blockNumber: t.bigint().notNull(),
+    blockHash: t.hex().notNull(),
+    blockTimestamp: t.bigint().notNull(),
+    indexedAt: t.bigint().notNull(), // When this block was indexed (for cleanup)
+  }),
+  (table) => ({
+    pk: primaryKey({ columns: [table.blockNumber, table.chainId] }),
+    chainIdIdx: index().on(table.chainId),
+    blockHashIdx: index().on(table.blockHash),
+    timestampIdx: index().on(table.blockTimestamp),
+  })
+);
+
+// ============================================================================
+// ALLOCATOR
 // ============================================================================
 
 export const account = onchainTable("account", (t) => ({
